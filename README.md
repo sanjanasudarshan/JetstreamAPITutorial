@@ -159,14 +159,14 @@ openstack security group rule create --proto icmp ${OS_USERNAME}-global-ssh
 ```
 *There's a reason to allow icmp. It's a contentious topic, but we recommend leaving it open. http://shouldiblockicmp.com/
 
-Optional rule to allow connectivity within a mini-cluster; i.e. if you boot more than one instance, this rule allows for comminications amongst all those instances. *We won't need this today*
+Optional rule to allow connectivity within a mini-cluster; i.e. if you boot more than one instance, this rule allows for comminications amongst all those instances. 
 
 ```
 openstack security group rule create --proto tcp --dst-port 1:65535 --remote-ip 10.0.0.0/24 ${OS_USERNAME}-global-ssh
 openstack security group rule create --proto udp --dst-port 1:65535 --remote-ip 10.0.0.0/24 ${OS_USERNAME}-global-ssh
 ```
 
-A better (more restrictive) example might be: *We will continue to not need this today*
+A better (more restrictive) example might be: *We won't need this today*
 
 ```
 openstack security group rule create --proto tcp --dst-port 1:65535 --remote-ip 10.X.Y.0/24 ${OS_USERNAME}-global-ssh
