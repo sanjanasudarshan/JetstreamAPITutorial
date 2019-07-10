@@ -300,7 +300,7 @@ openstack image list --limit 500 | grep JS-API-Featured
 Time to boot your instance -- **please note that the image will change**! They are updated and named with the date.
 
 ```
-openstack server create ${OS_USERNAME}-api-U-1 \
+openstack server create ${OS_USERNAME}-headnode \
 --flavor m1.small \
 --image pearc19-tutorial-headnode \
 --key-name ${OS_USERNAME}-api-key \
@@ -310,7 +310,7 @@ openstack server create ${OS_USERNAME}-api-U-1 \
 --wait
 ```
 
-*Note that ${OS_USERNAME}-api-U-1 is the name of the running instance. A best practice for real usage is to pick a name that helps you identify that server. Each instance you boot should have a unique name; otherwise, you will have to control your instances via the UUID
+*Note that ${OS_USERNAME}-headnode is the name of the running instance. A best practice for real usage is to pick a name that helps you identify that server. Each instance you boot should have a unique name; otherwise, you will have to control your instances via the UUID
 
 *Note on patching 
 
@@ -331,7 +331,7 @@ openstack floating ip create public
 …then add that IP address to your running instance. Substitute the actual IP number you just got for the <your.ip.number.here>
 
 ```
-openstack server add floating ip ${OS_USERNAME}-api-U-1 <your.ip.number.here>
+openstack server add floating ip ${OS_USERNAME}-headnode <your.ip.number.here>
 ```
 
 Is the instance reachable? Substitute the actual IP number you got for the <your.ip.number.here>
@@ -363,7 +363,7 @@ openstack volume create --size 10 ${OS_USERNAME}-10GVolume
 Now, add the new storage device to your VM:
 
 ```
-openstack server add volume ${OS_USERNAME}-api-U-1 ${OS_USERNAME}-10GVolume
+openstack server add volume ${OS_USERNAME}-headnode ${OS_USERNAME}-10GVolume
 ```
 
 Let's ssh in and get the volume working (if you're not still logged in via the other window). Substitute the actual IP number you just got for the <your.ip.number.here>.
@@ -433,7 +433,7 @@ umount /testmount
 
 Do this from the shell host:
 ```
-openstack server remove volume ${OS_USERNAME}-api-U-1 ${OS_USERNAME}-10GVolume
+openstack server remove volume ${OS_USERNAME}-headnode ${OS_USERNAME}-10GVolume
 openstack volume delete ${OS_USERNAME}-10GVolume
 ```
 
@@ -443,34 +443,34 @@ openstack volume delete ${OS_USERNAME}-10GVolume
 Reboot the instance (shutdown -r now).
 
 ```
-openstack server reboot ${OS_USERNAME}-api-U-1
+openstack server reboot ${OS_USERNAME}-headnode
 
 or
 
-openstack server reboot ${OS_USERNAME}-api-U-1 --hard
+openstack server reboot ${OS_USERNAME}-headnode --hard
 ```
 
 Stop the instance (shutdown -h now). Note that state is not retained and that resources are still reserved on the compute host so that when you decide restart the instance, resources are available to activate the instance.
 
 ```
-openstack server stop ${OS_USERNAME}-api-U-1
-openstack server start ${OS_USERNAME}-api-U-1
+openstack server stop ${OS_USERNAME}-headnode
+openstack server start ${OS_USERNAME}-headnode
 ```
 
 Put the instance to sleep; similar to closing the lid on your laptop. 
 Note that resources are still reserved on the compute host for when you decide restart the instance
 
 ```
-openstack server suspend ${OS_USERNAME}-api-U-1
-openstack server resume  ${OS_USERNAME}-api-U-1
+openstack server suspend ${OS_USERNAME}-headnode
+openstack server resume  ${OS_USERNAME}-headnode
 ```
 
 Shut the instance down and move to storage. Memory state is not maintained. Ephemeral storage is maintained. 
 Note that resources are still reserved on the compute host for when you decide restart the instance
 
 ```
-openstack server shelve ${OS_USERNAME}-api-U-1
-openstack server unshelve ${OS_USERNAME}-api-U-1
+openstack server shelve ${OS_USERNAME}-headnode
+openstack server unshelve ${OS_USERNAME}-headnode
 ```
 
 ## Dismantling what we have built
@@ -479,7 +479,7 @@ Note that infrastructure such as networks, routers, subnets, etc. only need to b
 Remove the IP from the instance. Substitute the actual IP number you got for the <your.ip.number.here>.
 
 ```
-openstack server remove floating ip ${OS_USERNAME}-api-U-1 <your.ip.number.here>
+openstack server remove floating ip ${OS_USERNAME}-headnode <your.ip.number.here>
 ```
 
 Return the IP to the pool. Substitute the actual IP number you got for the <your.ip.number.here>
@@ -491,7 +491,7 @@ openstack floating ip delete <your.ip.number.here>
 Delete the instance
 
 ```
-openstack server delete ${OS_USERNAME}-api-U-1
+openstack server delete ${OS_USERNAME}-headnode
 ```
 
 Unplug your router from the public network
