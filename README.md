@@ -420,22 +420,26 @@ mkfs.ext4 /dev/sdb
 Create a directory for the mount point and mount it (on the VM):
 
 ```
-mkdir /testmount
-mount /dev/sdb /testmount
+mkdir /export
+mount /dev/sdb /export
 df -h
 ```
 
-Let's clean up the volume (from the instance):
+Let's add it to the /etc/fstab so it's persistent:
+
 ```
-cd /
-umount /testmount
+vi /etc/fstab 
+
+```
+you can use nano or emacs, but I'll judge you
+
+
+add this line:
+
+```
+/dev/sdb /export ext4 defaults 1 2
 ```
 
-Do this from the shell host:
-```
-openstack server remove volume ${OS_USERNAME}-headnode ${OS_USERNAME}-10GVolume
-openstack volume delete ${OS_USERNAME}-10GVolume
-```
 
 ## DO NOT DO THESE -- THIS IS FOR INFORMATION PURPOSES ONLY ##
 ## Putting our instance into a non-running state
@@ -473,8 +477,33 @@ openstack server shelve ${OS_USERNAME}-headnode
 openstack server unshelve ${OS_USERNAME}-headnode
 ```
 
+
+For further investigation…
+A tutorial was presented at the PEARC17 conference on how to build a SLURM HPC cluster with OpenStack - https://github.com/ECoulter/Tutorial_Practice
+
+The tutorial assumes that a node at IP 149.165.157.95 is running that you need to login to as a first step. (Similar to this exercise.) This node was provided as an easy way to run the class and its only purpose was to provide a host with the openstack CLI clients installed. You can safely skip this step and proceed with executing the openstack commands you see in the tutorial.
+
+There are also two projects going on for virtual clustering:
+* https://github.com/ECoulter/Jetstream_Elastic_Slurm
+* https://github.com/hpc-cloud-toolkit/ostack-hpc
+
+
+
+
 ## Dismantling what we have built
 Note that infrastructure such as networks, routers, subnets, etc. only need to be created once and are usable by all members of the project. These steps are included for completeness. And, to clean up for the next class.
+
+Let's clean up the volume (from the instance):
+```
+cd /
+umount /testmount
+```
+
+Do this from the shell host:
+```
+openstack server remove volume ${OS_USERNAME}-headnode ${OS_USERNAME}-10GVolume
+openstack volume delete ${OS_USERNAME}-10GVolume
+```
 
 Remove the IP from the instance. Substitute the actual IP number you got for the <your.ip.number.here>.
 
@@ -535,14 +564,7 @@ Delete the key pair
 openstack keypair delete ${OS_USERNAME}-api-key
 ```
 
-For further investigation…
-A tutorial was presented at the PEARC17 conference on how to build a SLURM HPC cluster with OpenStack - https://github.com/ECoulter/Tutorial_Practice
 
-The tutorial assumes that a node at IP 149.165.157.95 is running that you need to login to as a first step. (Similar to this exercise.) This node was provided as an easy way to run the class and its only purpose was to provide a host with the openstack CLI clients installed. You can safely skip this step and proceed with executing the openstack commands you see in the tutorial.
-
-There are also two projects going on for virtual clustering:
-* https://github.com/ECoulter/Jetstream_Elastic_Slurm
-* https://github.com/hpc-cloud-toolkit/ostack-hpc
 
 
 *Meta: Goo.gl link: https://goo.gl/8ke2fu
