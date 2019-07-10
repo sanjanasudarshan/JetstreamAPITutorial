@@ -295,14 +295,14 @@ Note the possible images that you can use on the API side of Jetstream.
 openstack image list --limit 500 | grep JS-API-Featured
 ```
 
-*Note: Images without the JS-API- string are destined to be boot via Atmosphere. Atmosphere runs various scripts during the boot process. If you are booting via the API then these scripts will not get executed and the booted instance may (probably) will not be usable. We're going to use a CentOS 7 API Featured image
+*Note: Images without the JS-API- string are destined to be boot via Atmosphere. Atmosphere runs various scripts during the boot process. If you are booting via the API then these scripts will not get executed and the booted instance may (probably) will not be usable. We're going to use a prepped cluster image.
 
 Time to boot your instance -- **please note that the image will change**! They are updated and named with the date.
 
 ```
 openstack server create ${OS_USERNAME}-api-U-1 \
---flavor m1.tiny \
---image JS-API-Featured-CentOS7-May-20-2019 \
+--flavor m1.small \
+--image pearc19-tutorial-headnode \
 --key-name ${OS_USERNAME}-api-key \
 --security-group ${OS_USERNAME}-global-ssh \
 --nic net-id=${OS_USERNAME}-api-net \
