@@ -567,5 +567,5 @@ openstack keypair delete ${OS_USERNAME}-api-key
 
 
 
-*Meta: Goo.gl link: https://goo.gl/8ke2fu
+*Meta: Goo.gl link: https://is.gd/jYsnyJ
 
