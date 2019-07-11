@@ -60,7 +60,7 @@ export OS_AUTH_URL=ADD_END_POINT
 export OS_IDENTITY_API_VERSION=3
 ```
 
-In the real world you will want not want to save your password in a file. A much more secure way to set OS_PASSWORD is to read it from the command line when the openrc is sourced. E.g.
+In the real world you will not want to save your password in a file. A much more secure way to set OS_PASSWORD is to read it from the command line when the openrc is sourced. E.g.
 
 ```
 echo "Please enter your OpenStack Password: "
@@ -159,7 +159,7 @@ openstack security group rule create --proto icmp ${OS_USERNAME}-global-ssh
 ```
 *There's a reason to allow icmp. It's a contentious topic, but we recommend leaving it open. http://shouldiblockicmp.com/
 
-Optional rule to allow connectivity within a mini-cluster; i.e. if you boot more than one instance, this rule allows for comminications amongst all those instances. 
+Optional rule to allow connectivity within a mini-cluster; i.e. if you boot more than one instance, this rule allows for communications amongst all those instances. 
 
 ```
 openstack security group rule create --proto tcp --dst-port 1:65535 --remote-ip 10.0.0.0/24 ${OS_USERNAME}-global-ssh
