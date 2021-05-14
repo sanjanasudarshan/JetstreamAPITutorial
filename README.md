@@ -302,7 +302,7 @@ Time to boot your instance -- **please note that the image will change**! They a
 ```
 openstack server create ${OS_USERNAME}-headnode \
 --flavor m1.small \
---image pearc19-tutorial-headnode \
+--image JS-API-Featured-CentOS7-Latest \
 --key-name ${OS_USERNAME}-api-key \
 --security-group ${OS_USERNAME}-global-ssh \
 --nic net-id=${OS_USERNAME}-api-net \
