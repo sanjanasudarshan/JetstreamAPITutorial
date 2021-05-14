@@ -24,7 +24,7 @@ Notes about accessing Jetstream’s OpenStack API
 http://wiki.jetstream-cloud.org/After+API+access+has+been+granted
 
 SDKs for programmatically accessing OpenStack’s APIs
-https://developer.openstack.org/firstapp-libcloud/getting_started.html
+https://docs.openstack.org/openstacksdk/latest/user/
 
 openrc.sh for Jetstream’s OpenStack API
 http://wiki.jetstream-cloud.org/Setting+up+openrc.sh
